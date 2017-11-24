@@ -5,23 +5,11 @@
     - git
     - build-essential
 
-- name: Ensure rolespec user exist
-  user: name={{ rolespec_user }} state=present
+- name: Ensure rolespec user exists
+  user: name='{{ rolespec_user }}'
 
-- name: Ensure rolespec paths exist
-  file: path={{ item }} state=directory owner={{ rolespec_user }} group={{ rolespec_user }} mode='0755'
-  with_items:
-      - '{{ rolespec_path }}'
-      - '{{ rolespec_config_path }}'
-      - '{{ rolespec_certs_path }}'
-      - '{{ rolespec_templates_path }}'
-
-- name: Download rolespec
-  unarchive:
-    src: '{{ rolespec_download_url }}'
-    dest: '{{ rolespec_path }}'
-    remote_src: yes
-    extra_opts: '--strip-components=1'
-    owner: '{{ rolespec_user }}'
-    group: '{{ rolespec_user }}'
-    creates: '{{ rolespec_path }}/bin'
+- name: Create rolespec directory
+  file: state=directory path='{{ rolespec_path }}' owner='{{ rolespec_user }}' group='{{ rolespec_user }}' mode='775'
+  when: rolespec_path| default(False)
+  register: rolespec_path_register
+  failed_when: rolespec_path_register.failed|default(False) and rolespec_path_register.group != 'dialout'
