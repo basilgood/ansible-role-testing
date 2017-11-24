@@ -2,6 +2,7 @@
 - name: Apt install tools
   apt: name='{{ item }}' update_cache=yes
   with_items:
+    - acl
     - git
     - build-essential
 
