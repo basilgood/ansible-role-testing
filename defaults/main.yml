@@ -1,0 +1,5 @@
+---
+rolespec_version: 5.5.0
+rolespec_user: logstash
+rolespec_path: /opt/logstash
+rolespec_config_path: '{{ rolespec_path }}/conf.d'
