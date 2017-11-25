@@ -14,3 +14,26 @@
   when: rolespec_path| default(False)
   register: rolespec_path_register
   failed_when: rolespec_path_register.failed|default(False) and rolespec_path_register.group != 'dialout'
+
+- name: Set acl to allow ssh user to clone repo
+  acl: path='{{ rolespec_path }}' entity='{{ ansible_user }}' etype=user permissions=rwx state=present
+  when: rolespec_repo| default(False)
+
+- name: Set default acl to allow ssh user to clone repo
+  acl: path='{{ rolespec_path }}' entity='{{ ansible_user }}' default=yes etype=user permissions=rwx state=present
+  when: rolespec_repo| default(False)
+
+- name: Clone the git repo
+  become: no
+  git:
+    accept_hostkey: yes
+    repo: '{{ rolespec_repo }}'
+    dest:  '{{ rolespec_path }}'
+  register: rolespec_repo_status
+  when: rolespec_path| default(False) and rolespec_repo| default(False)
+
+- name: Install rolespec
+  make:
+    chdir: '{{ rolespec_path }}'
+    target: install
+  become: yes
