@@ -57,7 +57,7 @@
 - name: Rolespecs make scaffold directories
   shell: rolespec -n '{{ rolespec_role_name }}'
   args:
-    chdir: /vagrant/tests
+    chdir: tests
   become: no
   become_user: True
 
