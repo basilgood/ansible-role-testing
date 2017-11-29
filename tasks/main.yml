@@ -58,6 +58,8 @@
   shell: rolespec -n '{{ rolespec_role_name }}'
   args:
     chdir: /vagrant/
+  become: no
+  become_user: True
 
 
 # - name: Symlink
