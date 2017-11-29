@@ -59,7 +59,7 @@
   args:
     chdir: tests
   become: no
-  become_user: True
+  become_user: vagrant
 
 
 # - name: Symlink
