@@ -3,3 +3,4 @@ rolespec_name: rolespec
 rolespec_user: rolespec
 rolespec_path: '/opt/{{ rolespec_name }}'
 rolespec_repo: 'https://github.com/nickjj/rolespec'
+rolespec_testdir: '/home/vagrant'
