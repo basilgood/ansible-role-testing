@@ -28,7 +28,7 @@
   git:
     accept_hostkey: yes
     repo: '{{ rolespec_repo }}'
-    dest:  '{{ rolespec_path }}'
+    dest: '{{ rolespec_path }}'
   register: rolespec_repo_status
   when: rolespec_path| default(False) and rolespec_repo| default(False)
 
@@ -37,3 +37,29 @@
     chdir: '{{ rolespec_path }}'
     target: install
   become: yes
+
+- name: Make rolespec exe for vagrant
+  file:
+    path: /usr/local/bin/rolespec
+    owner: vagrant
+    group: vagrant
+    mode: 0755
+
+- name: Verify if testdir exists
+  stat:
+    path: "'{{ rolespec_testdir }}'*"
+  register: stat_testdir
+
+- name: Rolespecs make test directory
+  shell: rolespec -i '{{ rolespec_testdir }}'
+  when: stat_testdir == False
+
+- name: Rolespecs make scaffold directories
+  shell: rolespec -n tests/'{{ rolespec_role_name }}'
+
+
+# - name: Symlink
+#   file:
+#     src: /vagrant/
+#     dest: "'{{ rolespec_testdir }}'/roles/$"
+#     state: link
