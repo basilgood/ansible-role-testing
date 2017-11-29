@@ -58,7 +58,7 @@
   shell: rolespec -n '{{ rolespec_role_name }}'
   args:
     chdir: /root/vagrant/tests
-  become: no
+  become: yes
   become_user: vagrant
 
 
