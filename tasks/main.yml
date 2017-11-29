@@ -45,7 +45,7 @@
     group: vagrant
     mode: 0755
 
-- name: Verify if testdir exists
+- name: Ensure if testdir exists
   stat:
     path: "'{{ rolespec_testdir }}'*"
   register: stat_testdir
@@ -55,7 +55,7 @@
   when: stat_testdir == False
 
 - name: Rolespecs make scaffold directories
-  shell: rolespec -n tests/'{{ rolespec_role_name }}'
+  shell: rolespec -n /home/vagran/tests/'{{ rolespec_role_name }}'
 
 
 # - name: Symlink
