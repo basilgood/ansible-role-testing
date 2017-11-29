@@ -55,7 +55,9 @@
   when: stat_testdir == False
 
 - name: Rolespecs make scaffold directories
-  shell: rolespec -n tests/'{{ rolespec_role_name }}'
+  shell: rolespec -n '{{ rolespec_role_name }}'
+  args:
+    chdir: /vagrant/
 
 
 # - name: Symlink
