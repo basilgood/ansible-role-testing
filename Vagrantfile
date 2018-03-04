@@ -2,16 +2,13 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.hostname = "users"
+  config.vm.hostname = "testing"
   config.vm.box = "plumelo/xenial64"
 
-  config.vm.provider :lxc do |lxc, override|
-    lxc.container_name = "users"
+  config.vm.provider :lxc do |lxc|
+    lxc.container_name = "testing"
   end
 
-  # config.vm.provision 'ansible' do |ansible|
-  #   ansible.playbook = 'test.yml'
-  # end
   config.vm.provision "shell",
     :path => "specs.sh",
     :upload_path => "/home/vagrant/specs",
