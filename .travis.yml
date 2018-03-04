@@ -1,0 +1,6 @@
+---
+
+sudo: required
+
+script:
+  - ./specs.sh --install ansible-role-testing
