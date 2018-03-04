@@ -1,6 +1,6 @@
 .vagrant/
 default.nix
 venv/
-test/roles/*
+tests/playbooks/.*retry
 *.retry
 
